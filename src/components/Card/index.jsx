@@ -14,7 +14,7 @@ export const Card = ({ card, index, listId }) => {
   };
 
   return (
-    <Draggable draggableId={`card-${card.id}`} index={index}>
+    <Draggable draggableId={card.id} index={index}>
       {(provided) => (
         <div
           ref={provided.innerRef}
@@ -26,15 +26,14 @@ export const Card = ({ card, index, listId }) => {
             {open ? (
               <TextareaAutosize
                 type="text"
-                className="input-card-title w-full"
+                className="input-card-title w-full p-1 border rounded focus:outline-none focus:ring focus:border-blue-300"
                 value={newTitle}
                 onChange={(e) => setNewTitle(e.target.value)}
                 onBlur={handleOnBlur}
-                onKeyDown={(e) => {
+                onKeyPress={(e) => {
                   if (e.key === "Enter") {
                     handleOnBlur();
                   }
-                  return;
                 }}
                 autoFocus
               />
@@ -48,9 +47,8 @@ export const Card = ({ card, index, listId }) => {
                   onClick={() => {
                     removeCard(index, listId);
                   }}
-                  className="text-red-500"
+                  className="text-red-500 focus:outline-none"
                 >
-                  {/* You can add an icon here */}
                   Delete
                 </button>
               </div>

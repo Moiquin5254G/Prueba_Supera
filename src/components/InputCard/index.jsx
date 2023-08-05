@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext, useState } from "react";
 import storeApi from "../../utils/storeApi";
 
 export const InputCard = ({ setOpen, listId, type }) => {
@@ -9,8 +9,12 @@ export const InputCard = ({ setOpen, listId, type }) => {
     setTitle(e.target.value);
   };
 
-  const handleBtnConfirmed = () => {
-    type === "card" ? addMoreCard(title, listId) : addMoreList(title);
+  const handleBtnConfirm = () => {
+    if (type === "card") {
+      addMoreCard(title, listId);
+    } else {
+      addMoreList(title);
+    }
     setOpen(false);
     setTitle("");
   };
@@ -25,15 +29,15 @@ export const InputCard = ({ setOpen, listId, type }) => {
           placeholder={
             type === "card"
               ? "Enter a title of this card..."
-              : "Enter a list title"
+              : "Enter list title"
           }
           autoFocus
         />
       </div>
       <div className="confirm flex justify-between">
         <button
-          className="button-confirm bg-green-500 text-white px-3 py-1 rounded-md focus:outline-none focus:ring focus:border-green-300"
-          onClick={handleBtnConfirmed}
+          className="button-confirm bg-blue-500 text-white px-3 py-1 rounded-md focus:outline-none focus:ring focus:border-blue-300"
+          onClick={handleBtnConfirm}
         >
           {type === "card" ? "Add Card" : "Add List"}
         </button>
@@ -44,7 +48,6 @@ export const InputCard = ({ setOpen, listId, type }) => {
             setOpen(false);
           }}
         >
-          {/* You can add an icon here */}
           Cancel
         </button>
       </div>

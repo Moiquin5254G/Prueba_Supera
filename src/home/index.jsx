@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { v4 as uuid } from "uuid";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
-
 import { InputContainer } from "../components/InputContainer";
 import { List } from "../components/List";
-
 import store from "../utils/store";
 import StoreApi from "../utils/storeApi";
 
@@ -190,6 +188,7 @@ export default function Home() {
       window.localStorage.setItem("dataKanban", JSON.stringify(newState));
     }
   };
+
   return (
     <StoreApi.Provider
       value={{
@@ -198,14 +197,14 @@ export default function Home() {
         updateListTitle,
         removeCard,
         updateCardTitle,
-        deleteList
+        deleteList,
       }}
     >
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="app" type="list" direction="horizontal">
           {(provided) => (
             <div
-              className="wrapper"
+              className="flex overflow-x-auto p-4"
               ref={provided.innerRef}
               {...provided.droppableProps}
             >
@@ -214,7 +213,7 @@ export default function Home() {
 
                 return <List list={list} key={listId} index={index} />;
               })}
-              <div>
+              <div className="w-72">
                 <InputContainer type="list" />
               </div>
               {provided.placeholder}
